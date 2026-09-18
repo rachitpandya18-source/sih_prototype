@@ -1,5 +1,9 @@
-.venv/
+node_modules/
+runs/
+*.pt
+*.traineddata
+ai/ui_detector/dataset/
+ai/ocr/test_page.png
+ai/redaction/redacted_page.png
 __pycache__/
-.pytest_cache/
-.env
 *.pyc
