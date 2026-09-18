@@ -1,0 +1,27 @@
+{
+  "session_id": "sess_12345",
+  "step_number": 1,
+  "task_instruction": "Find the Learn more link",
+  "sanitized_screenshot_base64": null,
+  "sanitized_screenshot_mime_type": "image/webp",
+  "current_url": "https://example.com/",
+  "page_title": "Example Domain",
+  "sanitized_axtree": [
+    {
+      "id": "elem_3",
+      "role": "link",
+      "name": "Learn more",
+      "bbox": [30, 210, 122, 232]
+    }
+  ],
+  "detected_ui_elements": [
+    {
+      "class": "link",
+      "bbox": [30, 210, 122, 232],
+      "confidence": 0.96,
+      "id": "elem_3"
+    }
+  ],
+  "masked_token_map": {},
+  "history": []
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NETRAAction",
+  "type": "object",
+  "required": ["action_type", "requires_human_confirmation", "is_task_complete", "confidence"],
+  "properties": {
+    "action_type": {"enum": ["CLICK", "TYPE", "SELECT", "SCROLL", "WAIT", "NAVIGATE", "FINISH", "REQUEST_CONFIRMATION"]},
+    "target_id": {"type": ["string", "null"]},
+    "target_bbox": {
+      "type": ["array", "null"],
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"type": "number"}
+    },
+    "target_coords": {
+      "description": "Visual fallback coordinates in CSS pixel space; prefer target_id. If derived from screenshot pixels, divide by window.devicePixelRatio.",
+      "type": ["object", "null"],
+      "properties": {
+        "x": {"type": "number"},
+        "y": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    "value": {"type": ["string", "null"], "description": "Masked token only, never raw user data."},
+    "value_ref": {"type": ["string", "null"]},
+    "direction": {"enum": ["up", "down", "left", "right", null]},
+    "amount": {"type": ["number", "null"]},
+    "url": {"type": ["string", "null"]},
+    "ms": {"type": ["integer", "null"]},
+    "requires_human_confirmation": {"type": "boolean"},
+    "decision_rationale": {"type": "string"},
+    "is_task_complete": {"type": "boolean"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+  },
+  "additionalProperties": false
+}
