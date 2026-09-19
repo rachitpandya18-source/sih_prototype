@@ -4,6 +4,8 @@ import sys
 
 from PIL import Image, ImageDraw
 from pii.pii_rules import detect_pii
+from ui_detector.predict_ui import detect_ui
+from ui_detector.match_axtree import match_ui_to_axtree
 
 
 def run_ocr(image_path):
@@ -82,6 +84,40 @@ def redact_image(image_path, output_path, boxes):
 
     image.save(output_path)
 
+def build_test_axtree(ui_elements):
+    axtree = []
+
+    for index, ui in enumerate(ui_elements):
+        if ui["class"] == "button":
+            role = "button"
+        elif ui["class"] == "textbox":
+            role = "textbox"
+        elif ui["class"] == "checkbox":
+            role = "checkbox"
+        elif ui["class"] == "radio":
+            role = "radio"
+        elif ui["class"] == "select":
+            role = "combobox"
+        elif ui["class"] == "link":
+            role = "link"
+        elif ui["class"] == "heading":
+            role = "heading"
+        elif ui["class"] == "image":
+            role = "img"
+        else:
+            role = "generic"
+
+        axtree.append({
+            "id": f"ax_{index + 1}",
+            "role": role,
+            "name": "",
+            "text": "",
+            "bbox": ui["bbox"],
+            "disabled": False,
+            "visible": True
+        })
+
+    return axtree
 
 def main():
 
@@ -91,7 +127,24 @@ def main():
 
     image_path = sys.argv[1]
 
-    print("Running OCR...")
+    print("Running UI detection...")
+
+    ui_elements = detect_ui(image_path)
+
+    print("\nUI elements detected:")
+
+    for element in ui_elements:
+        print(element)
+
+    print("\nBuilding test AXTree...")
+    axtree = build_test_axtree(ui_elements)
+
+    print("\nMatching UI detections to AXTree...")
+    matched_ui = match_ui_to_axtree(ui_elements, axtree)
+
+    for element in matched_ui:
+        print(element)
+    print("\nRunning OCR...")
 
     ocr_result = run_ocr(image_path)
 
@@ -126,8 +179,46 @@ def main():
         boxes
     )
 
-    print("\nRedacted image saved:")
-    print(output_path)
+    sanitized_text = text
+
+    for finding in findings:
+        sanitized_text = sanitized_text.replace(
+            finding["text"],
+            "[REDACTED]"
+        )
+
+        sanitized_context = {
+            "ui_elements": matched_ui,
+            "sanitized_axtree": axtree,
+            "ocr_text": sanitized_text,
+            "pii_detected": [
+                {"type": finding["type"]}
+                for finding in findings
+            ],
+            "redaction_boxes": [
+                {
+                    "type": box["type"],
+                    "box": box["box"]
+                }
+                for box in boxes
+            ],
+            "sanitized_image": output_path
+        }
+
+    print("\nSanitized context:")
+    print(json.dumps(sanitized_context, indent=2))
+
+    context_path = "ai/redaction/sanitized_context.json"
+
+    with open(context_path, "w", encoding="utf-8") as file:
+        json.dump(
+            sanitized_context,
+            file,
+            indent=2
+        )
+
+    print("\nSanitized context saved:")
+    print(context_path)
 
 
 if __name__ == "__main__":
