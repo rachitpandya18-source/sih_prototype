@@ -1,5 +1,8 @@
 node_modules/
 runs/
+datasets/
+.pytest_cache/
+legacy_ui_detector/
 *.pt
 *.traineddata
 ai/ui_detector/dataset/
