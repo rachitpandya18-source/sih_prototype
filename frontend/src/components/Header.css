@@ -1,0 +1,204 @@
+/* ── Header Component Styles ── */
+
+.netra-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-2xl);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.header-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4));
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.header-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.header-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-secondary);
+  border: 1px solid var(--border-default);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.header-tagline {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.connection-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-primary);
+  transition: all var(--duration-fast);
+}
+
+.connection-indicator:hover {
+  border-color: var(--border-active);
+  background: var(--bg-surface-hover);
+}
+
+.connection-indicator.connected {
+  color: var(--status-success);
+}
+
+.connection-indicator.disconnected {
+  color: var(--status-error);
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.connection-indicator.connected .connection-dot {
+  background: var(--status-success);
+  box-shadow: 0 0 8px var(--status-success);
+  animation: pulse 2s infinite;
+}
+
+.connection-indicator.disconnected .connection-dot {
+  background: var(--status-error);
+  box-shadow: 0 0 6px var(--status-error);
+}
+
+.url-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  margin-left: 4px;
+}
+
+.url-edit-form {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.url-edit-input {
+  background: var(--bg-primary);
+  border: 1px solid var(--accent-primary);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  width: 180px;
+}
+
+.url-save-btn {
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.url-cancel-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.health-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.header-chip {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.version-chip {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+  font-family: var(--font-mono);
+}
+
+.planner-chip {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--accent-cyan);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.gate-chip {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--status-success);
+  border-color: rgba(34, 197, 94, 0.3);
+}
